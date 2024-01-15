@@ -18,6 +18,11 @@ export const helloWorld = onRequest((request, response) => {
   response.send("Hello from Firebase!");
 });
 
-export const getApiKey = onRequest( {cors: true}, (request, response) => {
-  response.json({key: "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"});
+export const getApiKey1 = onRequest({cors: true}, (request, response) => {
+  response.json({key: "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"});
 });
+
+export const getApiKey2 = onRequest({cors: true}, (request, response) => {
+  response.json({key: "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"});
+});
+
