@@ -9,6 +9,8 @@
 
 import {onRequest} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
+import {mailService} from "./service/MailService";
+
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -26,3 +28,4 @@ export const getApiKey2 = onRequest({cors: true}, (request, response) => {
   response.json({key: "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"});
 });
 
+export const sendMail= onRequest(mailService);
