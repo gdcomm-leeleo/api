@@ -36,8 +36,8 @@ export const sendMail = onRequest({cors: true}, (request, response) => {
 
     const transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.APP_USER,
         pass: process.env.APP_PASS,
