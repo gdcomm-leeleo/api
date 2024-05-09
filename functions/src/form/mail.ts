@@ -1,30 +1,24 @@
-import {Attachment} from "nodemailer/lib/mailer";
+import {AttachmentLike} from "nodemailer/lib/mailer";
 
 class MailForm {
-  from: string;
-  sender?: string;
   to: Array<string>;
   cc?: Array<string>;
   subject?: string;
   text?: string;
   html?: string;
-  attachments?: Attachment[];
+  attachments?: AttachmentLike[];
 
   constructor(
-    from: string,
-    sender = "",
     to: Array<string>,
     cc: Array<string> = [],
     subject = "",
     text = "",
     html = "",
-    attachments: Attachment[] = []
+    attachments: AttachmentLike[] = []
   ) {
     if (to.length === 0) {
       throw new Error("메일 수신자가 없습니다.");
     }
-    this.from = from;
-    this.sender = sender;
     this.to = to;
     this.cc = cc;
     this.subject = subject;
@@ -34,31 +28,19 @@ class MailForm {
   }
 
   static Builder = class {
-    private from = "";
-    private sender = "";
     private to: Array<string> = [];
     private cc: Array<string> = [];
     private subject = "";
     private text = "";
     private html = "";
-    private attachments: Attachment[] = [];
+    private attachments: AttachmentLike[] = [];
 
-    setFrom(from: string): this {
-      this.from = from;
-      return this;
-    }
-
-    setSender(sender: string): this {
-      this.sender = sender;
-      return this;
-    }
-
-    addTo(...to: Array<string>): this {
+    addTo(to: Array<string>): this {
       this.to.push(...to);
       return this;
     }
 
-    addCc(...cc: Array<string>): this {
+    addCc(cc: Array<string>): this {
       this.cc.push(...cc);
       return this;
     }
@@ -78,15 +60,13 @@ class MailForm {
       return this;
     }
 
-    addAttachments(...attachments: Attachment[]): this {
+    addAttachments(attachments: AttachmentLike[]): this {
       this.attachments.push(...attachments);
       return this;
     }
 
     build(): MailForm {
       return new MailForm(
-        this.from,
-        this.sender,
         this.to,
         this.cc,
         this.subject,
